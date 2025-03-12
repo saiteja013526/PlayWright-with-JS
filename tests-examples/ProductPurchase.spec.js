@@ -43,11 +43,17 @@ test('purchasing a product', async({page})=>{
   // await page.locator('#login').click();
   //await page.waitForTimeout(3000);
   
+
+  //dashboard page from here
   await page.locator("(//button[contains(text(),'Add To Cart')])[2]").click();
   await page.waitForTimeout(2000);
   await page.locator("[routerlink='/dashboard/cart']").click();
+
+  //cart page
   await page.locator('text=Checkout').click();
   //await page.pause();
+
+  //order details page
   await page.locator("input[placeholder='Select Country']").pressSequentially('ind');
   const dropdown= page.locator(".ta-results");
   await dropdown.waitFor();
@@ -61,12 +67,14 @@ test('purchasing a product', async({page})=>{
     }
     
   }
+
   const textboxes = await page.locator("input.input.txt")
   await textboxes.nth(1).fill("222");
   await textboxes.nth(2).fill("sai teja");
 
   await page.locator(".btnn").click();
-  
+
+  //order confirmation page.  
   const successMessage = page.locator(".hero-primary");
   await successMessage.waitFor();
   

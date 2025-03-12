@@ -1,0 +1,16 @@
+ [{
+  "name": "sai teja",
+  "username":"test@123qwe.com",
+  "password":"Test@123",
+  "cvv":"123"
+  },
+  
+  
+  {
+    "name": "Vamshi",
+  "username":"saiteja@example.com",
+  "password":"Test@123",
+  "cvv":"345"
+  }
+
+]
