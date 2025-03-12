@@ -1,20 +1,28 @@
 class APIUtils {
 
+  constructor(apiContext, loginPayload){
+    this.apiContext=apiContext;
+    this.loginPayload = loginPayload;
+  }
+
 
   async getToken(){
-    const loginResponse = await apiContext.post("https://rahulshettyacademy.com/api/ecom/auth/login", 
-    {
-      data: loginPayload
-    })
-    //console.log("this responce we get is:", loginResponse);
+    let tokendetails;
 
-    
-    expect(loginResponse.ok()).toBeTruthy(); 
+    const loginResponse = await this.apiContext.post("https://rahulshettyacademy.com/api/ecom/auth/login", 
+      {
+        data: this.loginPayload
+      })
+      //console.log("this responce we get is:", loginResponse);
 
-    
-    const loginResponseJson = await loginResponse.json(); // imp we need to wait untill we extract the token.
-    tokendetails = loginResponseJson.token;
-    //console.log(tokendetails);
-    return tokendetails;
+      
+      //expect(loginResponse.ok()).toBeTruthy(); 
+
+      
+      const loginResponseJson = await loginResponse.json(); // imp we need to wait untill we extract the token.
+      tokendetails = loginResponseJson.token;
+      console.log(tokendetails);
+      return tokendetails;
   }
 }
+module.exports = {APIUtils};

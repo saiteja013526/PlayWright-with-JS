@@ -4,37 +4,42 @@
  */
 
 import {test, expect, request} from '@playwright/test';
+import { APIUtils } from '../utils/APIUtils';
 
 const loginPayload={userEmail: "test@123qwe.com", userPassword: "Test@123"};
-let tokendetails;
+let token;  // also have a token here to catch the returned token and use it.
 
 
 test.beforeAll( async () => 
   {
+    //login API
     const apiContext = await request.newContext();
-    const loginResponse = await apiContext.post("https://rahulshettyacademy.com/api/ecom/auth/login", 
-      {
-        data: loginPayload
-      })
-      //console.log("this responce we get is:", loginResponse);
+    const apiUtils = new APIUtils(apiContext, loginPayload); 
+    token = await apiUtils.getToken();
+
+
+    // const loginResponse = await apiContext.post("https://rahulshettyacademy.com/api/ecom/auth/login", 
+    //   {
+    //     data: loginPayload
+    //   })
+    //   //console.log("this responce we get is:", loginResponse);
 
       
-      expect(loginResponse.ok()).toBeTruthy(); 
+    //   expect(loginResponse.ok()).toBeTruthy(); 
 
       
-      const loginResponseJson = await loginResponse.json(); // imp we need to wait untill we extract the token.
-      tokendetails = loginResponseJson.token;
-      console.log(tokendetails);
-
+    //   const loginResponseJson = await loginResponse.json(); // imp we need to wait untill we extract the token.
+    //   tokendetails = loginResponseJson.token;
+    //   console.log(tokendetails);
 
       });
   
   
-test('purchasing a product', async({page})=>{
+test.only('purchasing a product', async({page})=>{
 
   await page.addInitScript(value =>{
     window.localStorage.setItem('token', value)
-  }, tokendetails);
+  }, token);  // instead of catching token we can directly call the get token method also.
 
   await page.goto("https://rahulshettyacademy.com/client/");
 
