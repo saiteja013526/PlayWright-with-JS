@@ -1,0 +1,127 @@
+this is a short notes helps to revise some important topics that are often used.
+
+
+Parallel Execution
+===================
+
+to run the tests in parallel playwright uses the workers to run the tests in the parallel mode.
+--> the test case files (i.e example.spec.js, example2.spec.js, example3.spec.js) these files will run in the parallel mode 
+--> the test cases persent in the each file will run sequentially, one after another.
+
+we can also run the test cases present in each file parallelly, we know that by default they will run sequentially,
+to run the test cases parallelly we have to use the "describe" and configure the test case to run in the parallel mode
+
+How??
+
+for an example this is how a normal test cases look like.
+
+"one important thing when we run them they execute one after another sequentially and for an example the 'add proguct to cart' test case fails then remaining testcases will not execute, 
+in this situation our test cases have dependencies over each other, we it is better to run them sequentially."
+
+
+test('Login test case', async({page})=>{
+  --------------------
+  ---------------------
+  ----
+  --------
+  -------------
+});
+
+
+test('add products to cart', async({page})=>{
+  --------------------
+  ---------------------
+  ----
+  --------
+  -------------
+});
+
+
+test('verifying the order details', async({page})=>{
+  --------------------
+  ---------------------
+  ----
+  --------
+  -------------
+});
+
+
+
+test('purchasing a product', async({page})=>{
+  --------------------
+  ---------------------
+  ----
+  --------
+  -------------
+});
+
+
+test('Log out test case', async({page})=>{
+  --------------------
+  ---------------------
+  ----
+  --------
+  -------------
+});
+
+
+to run them parallelly we have to describe and configure our testcase a little bit thats it.
+
+test.describe.configure({mode:'parallel'});  --->> adding this line before writing the test cases will tell that where ever we are using a 'test' fixturen we are using it with the specified configurations in which we are telling them to run parallelly.
+
+example:
+
+test.describe.configure({mode:'parallel'});
+
+
+test('Login test case', async({page})=>{
+  --------------------
+  ---------------------
+  ----
+  --------
+  -------------
+});
+
+
+test('add products to cart', async({page})=>{
+  --------------------
+  ---------------------
+  ----
+  --------
+  -------------
+});
+
+
+test('verifying the order details', async({page})=>{
+  --------------------
+  ---------------------
+  ----
+  --------
+  -------------
+});
+
+
+
+test('purchasing a product', async({page})=>{
+  --------------------
+  ---------------------
+  ----
+  --------
+  -------------
+});
+
+
+test('Log out test case', async({page})=>{
+  --------------------
+  ---------------------
+  ----
+  --------
+  -------------
+});
+
+
+
+we cam also configure the rum mode to 'serial' execution to run the test cases sequentially we prefer this when we have the dependencies of test case over each other.
+
+
+

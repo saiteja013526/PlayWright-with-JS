@@ -35,7 +35,7 @@ test.beforeAll( async () =>
       });
   
   
-test.only('purchasing a product', async({page})=>{
+test('purchasing a product', async({page})=>{
 
   await page.addInitScript(value =>{
     window.localStorage.setItem('token', value)
