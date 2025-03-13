@@ -23,11 +23,11 @@ export default defineConfig({
   /* Retry on CI only */
   // In CI/CD (e.g., GitHub Actions), set retries to 2 for flaky tests.  
   // Locally, set retries to 0 for faster debugging.  
-  retries: process.env.CI ? 2 : 1,
+  retries: process.env.CI ? 1 : 0,   //1:1,
   
   
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : 4,
+  workers: process.env.CI ? 1 : undefined,   //1:5,
 
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
@@ -43,8 +43,9 @@ export default defineConfig({
     // baseURL: 'http://127.0.0.1:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
+
     trace: 'on-first-retry',
-    headless: true,
+    headless: process.env.CI ? true :false, // Ensures headless mode in CI
     screenshot: 'only-on-failure',
     
   },
